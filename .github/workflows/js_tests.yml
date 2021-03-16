@@ -62,4 +62,5 @@ jobs:
           bids-validator/bin/bids-validator bids-validator/tests/data/valid_headers/ --ignoreNiftiHeaders --json
 
       - name: Build docs
+        if: matrix.platform == 'ubuntu-latest'
         run: npm run web-export && rsync -av ./bids-validator-web/out/ ~/web_version
