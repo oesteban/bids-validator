@@ -19,5 +19,5 @@ jobs:
           tags: bids/validator:latest
       - name: Smoke Test
         run: | 
-            docker run --rm -t -v $PWD/bids-validator/tests/data/valid_headers:/data bids/validator:latest /data --ignoreNiftiHeaders
-            docker run --rm -t -v $PWD/bids-validator/tests/data/valid_headers:/data bids/validator:latest /data --ignoreNiftiHeaders --json
+            docker run --rm -v $PWD/bids-validator/tests/data/valid_headers:/data bids/validator:latest /data --ignoreNiftiHeaders
+            docker run --rm -v $PWD/bids-validator/tests/data/valid_headers:/data bids/validator:latest /data --ignoreNiftiHeaders --json
