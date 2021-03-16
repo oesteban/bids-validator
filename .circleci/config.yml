@@ -35,8 +35,8 @@ jobs:
           keys:
             - npm-deps-{{ checksum "package.json" }}-{{ checksum "./bids-validator/package.json" }}-{{ checksum "./bids-validator-web/package.json" }}-v1
       - run:
-        name: add node_modules bin to path
-        command: echo "export PATH=$PATH:./node_modules/.bin" >> $BASH_ENV
+          name: add node_modules bin to path
+          command: echo "export PATH=$PATH:./node_modules/.bin" >> $BASH_ENV
       - run: npm install -g npm@^7
       - run: npm install
       - run:
