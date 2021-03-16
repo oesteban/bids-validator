@@ -60,3 +60,6 @@ jobs:
         run: |
           bids-validator/bin/bids-validator bids-validator/tests/data/valid_headers/ --ignoreNiftiHeaders
           bids-validator/bin/bids-validator bids-validator/tests/data/valid_headers/ --ignoreNiftiHeaders --json
+
+      - name: Build docs
+        run: npm run web-export && rsync -av ./bids-validator-web/out/ ~/web_version
