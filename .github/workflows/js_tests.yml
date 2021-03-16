@@ -38,9 +38,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
 
       - name: Install bids-validator
-        run: |
-          npm install
-          echo "./node_modules/.bin" >> $GITHUB_PATH
+        run: npm install
 
       - name: Eslint
         if: matrix.platform == 'ubuntu-latest'
