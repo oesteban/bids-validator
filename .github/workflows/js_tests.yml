@@ -16,6 +16,10 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
 
+    env:
+      TZ: Europe/Berlin
+      FORCE_COLOR: 1
+
     steps:
       - uses: actions/checkout@v2
 
