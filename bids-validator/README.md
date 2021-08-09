@@ -401,7 +401,7 @@ for filepath in filepaths:
 To develop locally, clone the project and run `npm install` from the project
 root. This will install external dependencies. If you wish to install
 `bids-validator` globally (so that you can run it in other folders), use the
-following command to install it globally: `cd bids-validator && npm install -g`
+following command to install it globally: `cd bids-validator && npm install -g` (for windows users, if in a different drive add /d, e.g. `cd /d F:\bids-validator && npm install -g`)
 
 Please see the [CONTRIBUTING.md](../CONTRIBUTING.md)
 for additional details.
@@ -437,7 +437,7 @@ To run the linter which checks code conventions run `npm run lint`.
 
 ### Publishing
 
-Publishing is done with [Lerna](https://github.com/lerna/lerna). Use the command `npm run lernaPublish` and follow instructions to set a new version.
+Publishing is done with [Lerna](https://github.com/lerna/lerna). Use the command `npx lerna publish` and follow instructions to set a new version.
 
 Using lerna publish will create a git commit with updated version information and create a version number tag for it, push the tag to GitHub, then publish to NPM and PyPI. The GitHub release is manual following that.
 

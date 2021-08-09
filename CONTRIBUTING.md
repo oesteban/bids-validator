@@ -60,7 +60,7 @@ To participate, be sure you know how to
 1. [Make a GitHub account][link_signupinstructions]
 1. Install the required software:
    - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-   - [NodeJS](https://nodejs.org/en/download/), including `npm` of version 7 or higher
+   - [NodeJS](https://nodejs.org/en/download/), including `npm` of version 7 or higher (check existing version with `npm -v`, to update an existing nodejs, we can suggest [this guide](https://phoenixnap.com/kb/update-node-js-version).)
 1. In the GitHub interface, [make a fork][link_fork] of
    https://github.com/bids-standard/bids-validator to your own user (called `USER` for the
    sake of the example)
@@ -156,6 +156,8 @@ You can get a good impression using the following links:
 - [How regular expressions are tested](https://github.com/bids-standard/bids-validator/blob/master/bids-validator/tests/type.spec.js)
 - [How JSON schemas are tested](https://github.com/bids-standard/bids-validator/blob/master/bids-validator/tests/json.spec.js)
 - [How TSV files are tested](https://github.com/bids-standard/bids-validator/blob/master/bids-validator/tests/tsv.spec.js)
+
+For more information on how to run the tests check the [testing section](./README.md#testing) of the README.
 
 [link_git]: https://git-scm.com/
 [link_handbook]: https://guides.github.com/introduction/git-handbook/

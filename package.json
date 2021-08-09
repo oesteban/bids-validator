@@ -11,6 +11,7 @@
     "test": "node bids-validator/bin/test-submodule-exists && jest",
     "npmPublish": "cd bids-validator && publish",
     "lernaPublish": "lerna publish && ./tools/post_publish.sh",
+    "postversion": "lerna version prerelease --preid dev --ignore-scripts --yes --force-publish=*",
     "web-dev": "cd bids-validator-web && npm run dev",
     "web-build": "cd bids-validator-web && npm run build",
     "web-start": "cd bids-validator-web && npm run build && npm start",

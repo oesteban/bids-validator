@@ -17,6 +17,7 @@ import checkDatasetDescription from './checkDatasetDescription'
 import checkReadme from './checkReadme'
 import validateMisc from '../../utils/files/validateMisc'
 import collectSubjectMetadata from '../../utils/summary/collectSubjectMetadata'
+import collectPetFields from '../../utils/summary/collectPetFields'
 
 /**
  * Full Test
@@ -80,7 +81,7 @@ const fullTest = (fileList, options, annexed, dir, callback) => {
   })
 
   // check if dataset contains T1w
-  if (summary.modalities.indexOf('T1w') < 0) {
+  if (!summary.dataTypes.includes('T1w')) {
     self.issues.push(
       new Issue({
         code: 53,
@@ -181,6 +182,7 @@ const fullTest = (fileList, options, annexed, dir, callback) => {
         stimuli,
         headers,
         jsonContentsDict,
+        jsonFiles,
         dir,
       )
     })
@@ -192,7 +194,9 @@ const fullTest = (fileList, options, annexed, dir, callback) => {
         tsv.validateTsvColumns(tsvs, jsonContentsDict, headers),
       )
       // Validate continous recording files
-      self.issues = self.issues.concat(tsv.validateContRec(files.contRecord, jsonContentsDict))
+      self.issues = self.issues.concat(
+        tsv.validateContRec(files.contRecord, jsonContentsDict),
+      )
 
       if (!options.ignoreSubjectConsistency) {
         // Validate session files
@@ -206,6 +210,10 @@ const fullTest = (fileList, options, annexed, dir, callback) => {
 
       // Group summary modalities
       summary.modalities = utils.modalities.group(summary.modalities)
+
+      // collect PET specific fields
+      if (summary.modalities.includes('PET'))
+        summary.pet = collectPetFields(jsonContentsDict)
 
       // Format issues
       const issues = utils.issues.format(self.issues, summary, self.options)

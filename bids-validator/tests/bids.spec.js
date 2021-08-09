@@ -99,9 +99,7 @@ describe('BIDS example datasets ', function() {
       assert(summary.sessions.length === 0)
       assert(summary.subjects.length === 16)
       assert.deepEqual(summary.tasks, ['balloon analog risk task'])
-      assert(summary.modalities.includes('T1w'))
-      assert(summary.modalities.includes('inplaneT2'))
-      assert(summary.modalities.includes('bold'))
+      expect(summary.modalities).toEqual(['MRI'])
       assert(summary.totalFiles === 134)
       assert.deepEqual(errors.length, 1)
       assert(warnings.length === 2)
@@ -126,8 +124,7 @@ describe('BIDS example datasets ', function() {
       assert(summary.subjects.length === 1)
       assert.deepEqual(summary.tasks, ['rhyme judgment'])
       assert.isFalse(summary.dataProcessed)
-      assert(summary.modalities.includes('T1w'))
-      assert(summary.modalities.includes('bold'))
+      expect(summary.modalities).toEqual(['MRI'])
       expect(summary.totalFiles).toEqual(8)
       assert(
         errors.findIndex(error => error.code === 60) > -1,
@@ -157,6 +154,13 @@ describe('BIDS example datasets ', function() {
         isdone()
       },
     )
+  })
+
+  it('includes issue 53 NO_T1W for dataset without T1w files', function(isdone) {
+    validate.BIDS(createDatasetFileList('no_t1w'), options, function(issues) {
+      assertErrorCode(issues.ignored, 53)
+      isdone()
+    })
   })
 
   // test for illegal characters used in acq and task name
@@ -202,9 +206,7 @@ describe('BIDS example datasets ', function() {
       assert(summary.sessions.length === 0)
       assert(summary.subjects.length === 16)
       assert.deepEqual(summary.tasks, ['balloon analog risk task'])
-      assert(summary.modalities.includes('T1w'))
-      assert(summary.modalities.includes('inplaneT2'))
-      assert(summary.modalities.includes('bold'))
+      assert(summary.modalities.includes('MRI'))
       assert(summary.totalFiles === 134)
       assert.deepEqual(errors.length, 1)
       assert(warnings.length === 2)
@@ -273,12 +275,35 @@ describe('BIDS example datasets ', function() {
       isdone()
     })
   })
-  it('should throw an error if it encounters a non-utf-8 file', function(isdone) {
+
+  it('should validate pet data', function(isdone) {
     validate.BIDS(
-      createDatasetFileList('latin-1_description'),
+      createDatasetFileList('broken_pet_example_2-pet_mri'),
       options,
       function(issues) {
-        assertErrorCode(issues.errors, 123)
+        assertErrorCode(issues.errors, 55)
+        isdone()
+      },
+    )
+  })
+
+  it('should validate pet blood data', function(isdone) {
+    validate.BIDS(
+      createDatasetFileList('broken_pet_example_3-pet_blood'),
+      options,
+      function(issues) {
+        assertErrorCode(issues.errors, 55)
+        isdone()
+      },
+    )
+  })
+
+  it('should catch missing tsv columns', function(isdone) {
+    validate.BIDS(
+      createDatasetFileList('pet_blood_missing_tsv_column'),
+      options,
+      function(issues) {
+        assertErrorCode(issues.errors, 211)
         isdone()
       },
     )
