@@ -5,10 +5,12 @@
     "bids-validator-web"
   ],
   "scripts": {
-    "lint": "cd ./bids-validator && ./node_modules/eslint/bin/eslint.js ./**/*.js",
-    "coverage": "./node_modules/.bin/jest --coverage",
-    "codecov": "./node_modules/.bin/codecov",
+    "lint": "cd ./bids-validator && eslint ./**/*.js",
+    "coverage": "jest --coverage",
+    "codecov": "codecov",
     "test": "node bids-validator/bin/test-submodule-exists && jest",
+    "npmPublish": "cd bids-validator && publish",
+    "lernaPublish": "lerna publish && ./tools/post_publish.sh",
     "postversion": "lerna version prerelease --preid dev --ignore-scripts --yes --force-publish=*",
     "web-dev": "cd bids-validator-web && npm run dev",
     "web-build": "cd bids-validator-web && npm run build",
@@ -25,8 +27,8 @@
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "codecov": "^3.8.1",
-    "jest": "^26.1.0",
-    "jest-environment-node": "^24.9.0",
+    "jest": "^26.6.3",
+    "jest-environment-node": "^26.6.2",
     "lerna": "^3.22.1"
   },
   "name": "bids-validator"
