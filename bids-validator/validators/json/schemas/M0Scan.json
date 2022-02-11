@@ -9,6 +9,16 @@
       "type": "number",
       "exclusiveMinimum": 0
     },
+    "IntendedFor": {
+      "anyOf": [
+        { "$ref": "#/$defs/validTarget" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/$defs/validTarget" },
+          "minItems": 1
+        }
+      ]
+    },
     "PhaseEncodingDirection": {
       "type": "string",
       "enum": ["i", "j", "k", "i-", "j-", "k-"]
@@ -40,6 +50,12 @@
         "type": "number",
         "exclusiveMinimum": 0
       }
+    }
+  },
+  "$defs": {
+    "validTarget": {
+      "type": "string",
+      "pattern": ".nii(.gz)?$"
     }
   }
 }

@@ -1244,6 +1244,7 @@ export default function NIFTI(
       }
     }
 
+    /*
     if (
       (path.includes('_m0scan.nii') ||
         utils.type.file.isFieldMapMainNii(path)) &&
@@ -1260,6 +1261,7 @@ export default function NIFTI(
         checkIfValidFiletype(intendedForFile, issues, file)
       }
     }
+    */
   }
   callback(issues)
 }

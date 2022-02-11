@@ -63,7 +63,8 @@ const ifJsonExist = (file, possibleJsonPath, jsonContentsDict, fileList) => {
         typeof mergedDictionary['IntendedFor'] == 'string'
           ? [mergedDictionary['IntendedFor']]
           : mergedDictionary['IntendedFor']
-      return checkIfIntendedExists(intendedFor, fileList, file)
+      return []
+      // return checkIfIntendedExists(intendedFor, fileList, file)
     }
   }
   else {

@@ -12,6 +12,7 @@ const validate = (jsonFiles, fileList, jsonContentsDict, summary) => {
           json(file, jsonContentsDict, (jsonIssues, jsObj) => {
             issues = issues.concat(jsonIssues)
             collectTaskSummary(file, jsObj, summary)
+            checkIntendedFor(file, fileList, jsonContentsDict, issues)
             return resolve()
           })
         }),
@@ -54,6 +55,40 @@ const checkForAccompanyingDataFile = (file, fileList, issues) => {
       )
     }
   }
+}
+
+const checkIntendedFor = (file, fileList, jsonContentsDict, issues) => {
+  const jsonContents = jsonContentsDict[file.relativePath]
+  if (!jsonContents.hasOwnProperty('IntendedFor')) {
+    return
+  }
+
+  const intendedForFiles =
+    typeof jsonContents['IntendedFor'] == 'string'
+      ? [jsonContents['IntendedFor']]
+      : jsonContents['IntendedFor']
+
+  intendedForFiles.forEach(intendedForFile => {
+    const intendedForFileFull =
+      '/' + file.relativePath.split('/')[1] + '/' + intendedForFile
+    const foundTarget = Object.values(fileList).some(targetFile => targetFile.relativePath === intendedForFileFull)
+    if (!foundTarget) {
+      issues.push(
+        new Issue({
+          file: file,
+          code: 37,
+          reason:
+          "'IntendedFor' property of this file ('" +
+          file.relativePath +
+          "') does not point to an existing file ('" +
+          intendedForFile +
+          "'). Please mind that this value should not include subject level directory " +
+          "('/" + file.relativePath.split('/')[1] + "/').",
+          evidence: intendedForFileFull,
+        })
+      )
+    }
+  })
 }
 
 export default validate
