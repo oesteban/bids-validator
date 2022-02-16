@@ -712,7 +712,8 @@ export default {
   139: {
     key: 'BLACKLISTED_MODALITY',
     severity: 'error',
-    reason: 'Found a modality that has been blacklisted through validator configuration.',
+    reason:
+      'Found a modality that has been blacklisted through validator configuration.',
   },
   140: {
     key: '140_EMPTY',
@@ -1117,5 +1118,10 @@ export default {
     key: 'INCONSISTENT_TIFF_EXTENSION',
     severity: 'error',
     reason: 'Inconsistent TIFF file type and extension',
+  },
+  228: {
+    key: 'MISSING_EVENTIDENTIFIER_COLUMN',
+    severity: 'error',
+    reason: 'Eyetracking _event.tsv files require an eventIdentifier column',
   },
 }

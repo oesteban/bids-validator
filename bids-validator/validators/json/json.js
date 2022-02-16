@@ -114,7 +114,7 @@ const selectSchema = file => {
       file.name.endsWith('NLO.json') ||
       file.name.endsWith('OCT.json') ||
       file.name.endsWith('SPIM.json')
-      ) {
+    ) {
       schema = require('./schemas/microscopy.json')
     } else if (
       file.relativePath.includes('/meg/') &&
@@ -147,6 +147,8 @@ const selectSchema = file => {
       schema = require('./schemas/events.json')
     } else if (file.name.endsWith('beh.json')) {
       schema = require('./schemas/beh.json')
+    } else if (file.name.endsWith('_eyetrack.json')) {
+      schema = require('./schemas/eyetrack.json')
     }
   }
   return schema
